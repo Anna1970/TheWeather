@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TheWeather</string>
+    <string name="action_settings">Настройки</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Узнайте погоду в городах</string>
+    <string name="second_fragment_label">Погода</string>
+    <string name="next">Вперед</string>
+    <string name="previous">Назад</string>
+    <string name="about_string">О программе</string>
+    <string name="header_weather_text">Текущее местоположение</string>
+</resources>
