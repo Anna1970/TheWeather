@@ -6,8 +6,8 @@ data class WeatherResponse(
     val LocalObservationDateTime: Date,
     val WeatherText: String,
     val WeatherIcon: Int,
-    val IconPhrase:String,
-    val Metric: Double
+    val WindDirectionLocalized: String,
+    val MetricTemperature: Double
     )
 
 

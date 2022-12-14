@@ -8,4 +8,6 @@
     <string name="previous">Назад</string>
     <string name="about_string">О программе</string>
     <string name="header_weather_text">Текущее местоположение</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

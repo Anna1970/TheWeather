@@ -14,17 +14,18 @@ import okhttp3.internal.http2.Http2Connection.Listener
 import ru.naa.theweather.R
 import ru.naa.theweather.databinding.ItemCityBinding
 import ru.naa.theweather.model.CityData
+import ru.naa.theweather.room.CityEntity
 
 class CityListAdapter() : RecyclerView.Adapter<CityListAdapter.ViewHolder>() {
 
-    var items: List<CityData> = mutableListOf()
+    var items: List<CityEntity> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-   var itemClick: (CityData) -> Unit = {}
-    fun itemClick(listener: (CityData) -> Unit){
+   var itemClick: (CityEntity) -> Unit = {}
+    fun itemClick(listener: (CityEntity) -> Unit){
         itemClick = listener
     }
 
@@ -40,14 +41,6 @@ class CityListAdapter() : RecyclerView.Adapter<CityListAdapter.ViewHolder>() {
             itemClick(items[position])
         }
 
-        holder.binding.layoutCity.setOnClickListener {
-
-            val bundle = Bundle()
-            bundle.putString("CityName", items[position].name)
-            bundle.putString("CityKey", items[position].key)
-
-            Navigation.findNavController(it).navigate(R.id.action_CityListFragment_to_WeatherFragment,bundle)
-        }
     }
 
     override fun getItemCount(): Int {

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="cityData"
-            type="ru.naa.theweather.model.CityData" />
+            type="ru.naa.theweather.room.CityEntity" />
     </data>
 
 

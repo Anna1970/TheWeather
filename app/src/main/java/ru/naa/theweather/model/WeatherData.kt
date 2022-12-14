@@ -1,12 +1,11 @@
 package ru.naa.theweather.model
 
-import java.util.*
-
 data class WeatherData(
+    val key: String,
     val date: String,
-    val text: String,
+    val weathertext: String,
     val icon: Int,
-    val iconPhrase: String,
-    val temperature: String
+    val wind: String,
+    val temperature: Double
 )
 

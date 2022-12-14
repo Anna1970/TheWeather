@@ -12,14 +12,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import ru.naa.theweather.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val keyApi: String = "UHRIH1AlUU5RQGSNAtXxx7Mcb7czKkqp"
-        //const val keyApi: String = "9VtVQQggP4B5X0n401v2XhuiAUVCp1Uv"
+        //const val keyApi: String = "UHRIH1AlUU5RQGSNAtXxx7Mcb7czKkqp"
+        const val keyApi: String = "9VtVQQggP4B5X0n401v2XhuiAUVCp1Uv"
     }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -33,18 +34,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        val navController =navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-/*
-        binding.fab.setOnClickListener { view ->
-            /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()*/
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-
-        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> Toast.makeText(this,"Выбраны настройки",Toast.LENGTH_SHORT).show()
+            //R.id.action_settings -> Toast.makeText(this,"Выбраны настройки",Toast.LENGTH_SHORT).show()
             R.id.action_about ->Toast.makeText(this,"Программа получает список городов и погоду в выбранном городе с сайта accuweather.com",Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)

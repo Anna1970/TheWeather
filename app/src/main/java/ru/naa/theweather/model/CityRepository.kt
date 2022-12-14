@@ -1,30 +1,74 @@
 package ru.naa.theweather.model
 
-import android.annotation.SuppressLint
-import android.content.Context
-import androidx.room.Room
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import ru.naa.theweather.MainActivity.Companion.keyApi
 import ru.naa.theweather.api.CityResponse
 import ru.naa.theweather.api.CityRestApi
+import ru.naa.theweather.room.CityDao
 import ru.naa.theweather.room.CityEntity
-import ru.naa.theweather.room.LocalDb
 
-class CityRepository(context: Context) {
+class CityRepository(private val dao:CityDao) {
 
-    var cities  = mutableListOf<CityData>()
 
-    private val cityService = CityRestApi.getService()
-    private val cityDao = Room.databaseBuilder(context,LocalDb::class.java,"city")
-        .build().cityDao()
+    private var cities  = dao.getAll()
 
-    suspend fun initCities() {
+    fun  getAll() = cities
+
+    suspend fun getApi(): MutableList<CityEntity> {
+        var listResponse = mutableListOf<CityEntity>()
         withContext(Dispatchers.IO) {
-            /*API ключ тестовый, исчерпал количество обращений
+            //API ключ тестовый, исчерпал количество обращений
+            val cityService = CityRestApi.getService()
+            val result= cityService.getAll(keyApi).execute()
+            listResponse = converterFromResponse(result.body()) as MutableList<CityEntity>
+            /*cityService.getAll().enqueue(object: Callback<List<CityResponse>>{
+                override fun onResponse(
+                    call: Call<List<CityResponse>>,
+                    response: Response<List<CityResponse>>
+                ) {
+                    listResponse = converterFromResponse(response.body()) as MutableList<CityEntity>
+                }
+                override fun onFailure(call: Call<List<CityResponse>>, t: Throwable) {
+
+                }
+
+            })*/
+        }
+        return listResponse
+    }
+
+    fun converterFromResponse(list: List<CityResponse>?): List<CityEntity>? {
+        val result = mutableListOf<CityEntity>()
+        list?.forEach {
+            result.add(CityEntity(it.Key, it.LocalizedName, it.Type))
+        }
+        return result
+    }
+
+    suspend fun getByKey(key:String): CityEntity {
+        return withContext(Dispatchers.IO){
+            return@withContext dao.getBykey(key)
+        }
+    }
+
+    suspend fun insert(vararg cities: CityEntity){
+        withContext(Dispatchers.IO){
+            cities.forEach { dao.insert(it) }
+        }
+    }
+
+
+    /*withContext(Dispatchers.IO) {
+            API ключ тестовый, исчерпал количество обращений
+            val cityService = CityRestApi.getService()
             val result = cityService.getAll(keyApi).execute().body()
             if (result != null) {
-                cities = converterFromResponse(result)
+                return@withContext converterFromResponse(result)
                 result.forEach {
                     if (it.Key != null && it.LocalizedName !=null && it.Type != null) {
                         cityDao.insert(CityEntity(it.Key, it.LocalizedName, it.Type))
@@ -32,42 +76,4 @@ class CityRepository(context: Context) {
                 }
             }*/
 
-            cities = emulateApi()
-            cities.forEach {
-                cityDao.insert(CityEntity(it.key, it.name, it.type))
-            }
-        }
-    }
-
-    @SuppressLint("SuspiciousIndentation")
-    private fun emulateApi(): MutableList<CityData> {
-        val result = mutableListOf<CityData>()
-        result.add(CityData("288689" , "Москва", "City"))
-        result.add(CityData("789654" , "Ростов", "City"))
-        result.add(CityData("123456" , "Краснодар", "City"))
-        result.add(CityData("456123" , "Ялта", "City"))
-        result.add(CityData("789456" , "Сочи", "City"))
-        result.add(CityData("789459" , "Калининград", "City"))
-        result.add(CityData("789486" , "Севастополь", "City"))
-        result.add(CityData("789286" , "Владивосток", "City"))
-        result.add(CityData("783486" , "Красноярск", "City"))
-        result.add(CityData("749486" , "Хабаровск", "City"))
-        result.add(CityData("789586" , "Волгоград", "City"))
-        result.add(CityData("782486" , "Омск", "City"))
-        result.add(CityData("779486" , "Симферополь", "City"))
-        result.add(CityData("729486" , "Керчь", "City"))
-        result.add(CityData("719486" , "Ярославль", "City"))
-        return result
-    }
-
-    @SuppressLint("SuspiciousIndentation")
-    fun converterFromResponse(list: List<CityResponse>?): MutableList<CityData> {
-        val result = mutableListOf<CityData>()
-            list?.forEach {
-                val city = CityData(it.Key, it.LocalizedName, it.Type)
-                result.add(city)
-            }
-
-        return result
-    }
 }

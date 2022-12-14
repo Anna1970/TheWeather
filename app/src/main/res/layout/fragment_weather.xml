@@ -45,95 +45,103 @@
             android:id="@+id/tv_city_current"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:layout_marginTop="116dp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
-            tools:text="Получаем город из главного фрагмента"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_header"
-            app:layout_constraintVertical_bias="0.033" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Получаем город из главного фрагмента" />
 
         <TextView
             android:id="@+id/tv_date_current"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{weatherData.date}"
+            android:layout_marginBottom="407dp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_city_current"
-            app:layout_constraintVertical_bias="0.094" />
+
+            tools:layout_editor_absoluteX="0dp"
+            tools:text="Дата" />
 
         <TextView
             android:id="@+id/tv_temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{weatherData.temperature}"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_date_current"
-            app:layout_constraintVertical_bias="0.086" />
+            app:layout_constraintVertical_bias="0.09"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Температура" />
+
+        <TextView
+            android:id="@+id/tvC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="°C"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/ic_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_temperature" />
 
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Пасмурно, небольшой дождь"
+            android:layout_marginBottom="52dp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_temperature"
-            app:layout_constraintVertical_bias="0.151" />
+            app:layout_constraintBottom_toTopOf="@+id/ic_description"
+            tools:layout_editor_absoluteX="0dp"
+            tools:text="описание" />
 
         <ImageView
             android:id="@+id/ic_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/iic_weather_3"
+            android:layout_marginStart="178dp"
+            android:layout_marginEnd="178dp"
+            android:layout_marginBottom="176dp"
             android:paddingLeft="5dp"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_description"
-            app:layout_constraintVertical_bias="0.264" />
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_wind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ветер: северо-восточный"
+            android:layout_marginBottom="92dp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ic_description"
-            app:layout_constraintVertical_bias="0.318" />
+            tools:text="ветер" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
